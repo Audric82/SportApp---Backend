@@ -11,10 +11,13 @@ import lombok.Data
 class User(
 
     @Id
-
     var id: Long,
 
     var email: String,
 
-    var password: String
+    var password: String,
+
+    var username: String,
+
+    var userrole: Int
 )
