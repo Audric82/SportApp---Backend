@@ -14,7 +14,7 @@ class UserService {
     private lateinit var userRepository: IUserRepository
 
     fun getAll() : List<User> {
-        return userRepository.findAll().toList()
+        return userRepository.findAll()
     }
 
     fun getUserById(id : Long) : User {
