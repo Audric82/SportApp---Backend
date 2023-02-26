@@ -1,10 +1,7 @@
 package app.sport.coachapp.controller
 
-import app.sport.coachapp.domain.SessionService
-import app.sport.coachapp.domain.UserService
-import app.sport.coachapp.entities.Exercice
+import app.sport.coachapp.domain.SessionServiceImpl
 import app.sport.coachapp.entities.Session
-import app.sport.coachapp.entities.User
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -23,44 +20,44 @@ import java.time.format.DateTimeFormatter
 class SessionController {
 
     @Autowired
-    private lateinit var sessionService: SessionService
+    private lateinit var sessionServiceImpl: SessionServiceImpl
 
     @GetMapping("")
     fun GetAllSessions() : List<Session> {
-        return sessionService.getAll()
+        return sessionServiceImpl.getAll()
     }
 
     @GetMapping("{id}")
     fun GetSessionById(@PathVariable("id") id : Long) : Session {
-        return sessionService.getSessionById(id)
+        return sessionServiceImpl.getSessionById(id)
     }
 
     @GetMapping("date/{date}")
     fun getAllSessionSinceDate(@PathVariable("date") date : String) : List<Session> {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         var dateParsed = LocalDate.parse(date, formatter)
-        return sessionService.getAllSinceDate(dateParsed)
+        return sessionServiceImpl.getAllSinceDate(dateParsed)
     }
 
     @PostMapping("")
     fun PostSession(@RequestBody session: Session) : ResponseEntity<String> {
-        if (sessionService.updateSession(session) != null) {
+        if (sessionServiceImpl.updateSession(session) != null) {
             return ResponseEntity.status(HttpStatus.OK).body("Session has been updated")
         } else {
-            sessionService.createSession(session)
+            sessionServiceImpl.createSession(session)
             return ResponseEntity.status(HttpStatus.CREATED).body("Session has been created")
         }
     }
 
     @DeleteMapping("{id}")
     fun DeleteSession(@PathVariable("id") id: Long ) : ResponseEntity<String> {
-        sessionService.deleteSessionById(id)
+        sessionServiceImpl.deleteSessionById(id)
          return ResponseEntity.status(HttpStatus.OK).body("Session has been deleted")
     }
 
     @DeleteMapping("program/{id}")
     fun deleteAllExerciceBySessionId(@PathVariable("id") id : Long) : ResponseEntity<String> {
-        sessionService.deleteAllSessionByProgramId(id)
+        sessionServiceImpl.deleteAllSessionByProgramId(id)
         return ResponseEntity.status(HttpStatus.OK).body("All sessions has been deleted")
     }
 }

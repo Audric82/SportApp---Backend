@@ -1,6 +1,6 @@
 package app.sport.coachapp.controller
 
-import app.sport.coachapp.domain.AuthentService
+import app.sport.coachapp.domain.AuthentServiceImpl
 import app.sport.coachapp.entities.Login
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*
 class AuthentController {
 
     @Autowired
-    private lateinit var authentService : AuthentService
+    private lateinit var authentServiceImpl : AuthentServiceImpl
 
     @PostMapping("")
     fun login(@RequestBody credentials: Login) : ResponseEntity<String> {
 
-        var userId = authentService.login(credentials)
+        var userId = authentServiceImpl.login(credentials)
 
         if (userId == -1L) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User unautorized");
