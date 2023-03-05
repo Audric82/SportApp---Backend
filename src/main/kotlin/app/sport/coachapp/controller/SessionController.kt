@@ -28,8 +28,14 @@ class SessionController {
     }
 
     @GetMapping("{id}")
-    fun GetSessionById(@PathVariable("id") id : Long) : Session {
-        return sessionServiceImpl.getSessionById(id)
+    fun GetSessionById(@PathVariable("id") id : Long) : ResponseEntity<Any> {
+
+        val response = sessionServiceImpl.getSessionById(id)
+
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response)
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Session not found")
     }
 
     @GetMapping("date/{date}")

@@ -27,6 +27,15 @@ class ExerciceController {
         return exerciceServiceImpl.getAll()
     }
 
+    @GetMapping("{id}")
+    fun getExerciceById(@PathVariable("id") id : Long) : ResponseEntity<Any> {
+        val response = exerciceServiceImpl.getById(id)
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(response)
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Exercice not found")
+    }
+
     @GetMapping("sessions/{id}")
     fun getAllExercicesBySessionId(@PathVariable("id") id : Long) : List<Exercice> {
         return exerciceServiceImpl.getBySessionId(id)

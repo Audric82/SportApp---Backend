@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.time.LocalDate
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class SessionServiceImpl : SessionService {
@@ -17,8 +18,8 @@ class SessionServiceImpl : SessionService {
         return sessionRepository.findAll()
     }
 
-    override fun getSessionById(id: Long) : Session {
-        return sessionRepository.findById(id).get()
+    override fun getSessionById(id: Long) : Session? {
+        return if (sessionRepository.existsById(id)) sessionRepository.getReferenceById(id) else null
     }
 
     override fun getAllSinceDate(date: LocalDate) : List<Session> {

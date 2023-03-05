@@ -6,7 +6,7 @@ import java.time.LocalDate
 interface SessionService {
 
     fun getAll() : List<Session>
-    fun getSessionById(id: Long) : Session
+    fun getSessionById(id: Long) : Session?
     fun getAllSinceDate(date: LocalDate) : List<Session>
     fun updateSession(session: Session) : Session?
     fun createSession(session: Session) : Session

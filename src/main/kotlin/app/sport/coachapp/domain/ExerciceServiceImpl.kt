@@ -16,8 +16,9 @@ class ExerciceServiceImpl : ExerciceService {
         return exerciceRepository.findAll();
     }
 
-    override fun getById(id: Long): Exercice {
-        return exerciceRepository.getReferenceById(id)
+    override fun getById(id: Long): Exercice? {
+
+        return if (exerciceRepository.existsById(id)) exerciceRepository.getReferenceById(id) else null
     }
 
     override fun getBySessionId(sessionId: Long) : List<Exercice> {

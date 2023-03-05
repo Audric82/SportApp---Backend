@@ -6,6 +6,9 @@ import app.sport.coachapp.util.PasswordUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.util.function.Supplier
+import kotlin.jvm.optionals.getOrElse
+import kotlin.jvm.optionals.getOrNull
 
 @Service
 class UserServiceImpl : UserService {
@@ -17,8 +20,8 @@ class UserServiceImpl : UserService {
         return userRepository.findAll()
     }
 
-    override fun getUserById(id : Long) : User {
-        return userRepository.findById(id).get()
+    override fun getUserById(id : Long) : User? {
+        return if (userRepository.existsById(id)) userRepository.getReferenceById(id) else null
     }
 
     override fun updateUser(user: User) : User? {

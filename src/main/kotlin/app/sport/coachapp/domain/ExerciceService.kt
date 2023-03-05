@@ -5,7 +5,7 @@ import app.sport.coachapp.entities.Exercice
 interface ExerciceService {
 
     fun getAll() : List<Exercice>
-    fun getById(id: Long) : Exercice
+    fun getById(id: Long) : Exercice?
     fun getBySessionId(sessionId: Long) : List<Exercice>
     fun createExercice(exercice: Exercice) : Exercice?
     fun updateExercise(exercice: Exercice) : Exercice?

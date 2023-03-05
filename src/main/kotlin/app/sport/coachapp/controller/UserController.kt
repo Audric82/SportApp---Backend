@@ -20,8 +20,15 @@ class UserController {
     }
 
     @GetMapping("{id}")
-    fun GetUserById(@PathVariable("id") id : Long) : User {
-        return userServiceImpl.getUserById(id)
+    fun GetUserById(@PathVariable("id") id : Long) : ResponseEntity<Any> {
+
+        val response = userServiceImpl.getUserById(id)
+
+        if (response != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(userServiceImpl.getUserById(id))
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found")
+        }
     }
 
     @PostMapping("")
